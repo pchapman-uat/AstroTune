@@ -30,12 +30,14 @@ export default function SetupApplication({
 	const Styles = useStyles("Main", "Setup", "Modal");
 	const ctx = useContext(AppContext);
 	const centeredText = Styles.Main.centeredText;
-	const [values] = useState<Partial<Pick<SettingPropTypes, AllowedKeys>>>({});
+	const [values, setValues] = useState<
+		Partial<Pick<SettingPropTypes, AllowedKeys>>
+	>({});
 
 	const [modalVisible, setModalVisible] = useState(false);
 	const [scannedIps, setScannedIps] = useState<string[]>([]);
 	const [ipAddress, setIpAddress] = useState<string>();
-	const [selectedTheme] = useState<AppTheme>(AppTheme.Light);
+	const [selectedTheme, setSelectedTheme] = useState<AppTheme>(AppTheme.Light);
 	const logger = useLogger("Setup Application");
 	const onSave = () => {
 		const entries = Object.entries(values) as [

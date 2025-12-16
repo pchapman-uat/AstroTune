@@ -267,7 +267,7 @@ function CustomThemeControl<K extends CustomThemeKeys>({
 		setSelectedColorKey,
 		setCustomTheme,
 		customTheme,
-		setColorModalVisible: setColorModalVisable,
+		setColorModalVisible: stColorModalVisible,
 	} = customThemeProps;
 
 	const custom = getCustomTheme();
@@ -277,7 +277,7 @@ function CustomThemeControl<K extends CustomThemeKeys>({
 	}, [item.KEY]);
 
 	const onPress = (key: keyof Theme) => {
-		setColorModalVisable(true);
+		stColorModalVisible(true);
 		setSelectedColorKey(key);
 	};
 	const onReset = (key: keyof Theme) => {

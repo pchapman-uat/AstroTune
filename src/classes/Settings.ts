@@ -156,10 +156,6 @@ const SettingsDefaults = {
 	FIRST_TIME: true,
 };
 
-type Constructible = {
-	new (...args: any[]): any;
-	init(json: any): void;
-};
 const SettingsConstructors = {
 	IP_ADDRESS: ChoiceArrayItems,
 	CUSTOM_THEME: CustomTheme,

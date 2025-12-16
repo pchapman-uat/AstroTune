@@ -205,7 +205,7 @@ export class Beefweb extends LoggerBaseClass<BeefWebEvents> {
 			debug: true,
 		});
 		this.addEventListener("songChange", (e) =>
-			this.updateNotificationPannel(e, this.albumArtURI),
+			this.updateNotificationPanel(e, this.albumArtURI),
 		);
 		AudioPro.addEventListener((event) => {
 			switch (event.type) {
@@ -252,7 +252,7 @@ export class Beefweb extends LoggerBaseClass<BeefWebEvents> {
 		if (!player) return;
 		this.dispatchEvent("update", player);
 	}
-	private async updateNotificationPannel(
+	private async updateNotificationPanel(
 		player: WebPlayerResponse,
 		albumArtURI: string,
 	) {

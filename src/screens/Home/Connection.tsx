@@ -197,7 +197,7 @@ export default function Connection({}: NavBarItemProps<"Connection">) {
 				</TouchableOpacity>
 
 				<Text style={Styles.Main.statusItem}>Status: {status}</Text>
-				<Text style={Styles.Main.statusItem}>P;ayer: {infoName}</Text>
+				<Text style={Styles.Main.statusItem}>Player: {infoName}</Text>
 				<Text style={Styles.Main.statusItem}>Title: {infoTitle}</Text>
 				<Text style={Styles.Main.statusItem}>Player Version: {infoVersion}</Text>
 			</View>

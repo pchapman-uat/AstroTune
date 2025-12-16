@@ -44,8 +44,8 @@ function BeefwebDeaDBeefInstructions({ Styles }: PlayerProps) {
 			</Text>
 			<View style={Styles.Main.spacer}></View>
 			<Text style={centeredText}>
-				2. Extract the tar.gz file inside of DeaDBeeF's plugin folder. DeaDBeeF will
-				require a restart
+				2. Extract the tar.gz file inside of DeaDBeeF&apos;s plugin folder. DeaDBeeF
+				will require a restart
 			</Text>
 			<View style={Styles.Main.spacer}></View>
 			<SharedBeefwebInstructions Styles={Styles} index={1} player={"DeaDBeeF"} />
@@ -68,7 +68,6 @@ function SharedBeefwebInstructions({
 	stepNumberOverride,
 }: SharedProps) {
 	const centeredText = Styles.Main.centeredText;
-	const hyperlink = Styles.Main.hyperlink;
 	if (index === 0) {
 		return (
 			<>
@@ -118,8 +117,8 @@ function SharedBeefwebInstructions({
 			<>
 				<Text style={centeredText}>6. Create a new file called config.json</Text>
 				<Text style={centeredText}>
-					Note: Do NOT put the config.json inside clientconfig, as this will not
-					work. (as of Beefweb v0.10)
+					Note: Do NOT put the config.json inside &apos;clientconfig&apos;, as this
+					will not work. (as of Beefweb v0.10)
 				</Text>
 				<View style={Styles.Main.spacer}></View>
 				<Text style={centeredText}>
@@ -135,7 +134,7 @@ function SharedBeefwebInstructions({
 `}
 				/>
 
-				{/* TODO: Add Warning Message about Cross Orgin */}
+				{/* TODO: Add Warning Message about Cross origin */}
 			</>
 		);
 	}

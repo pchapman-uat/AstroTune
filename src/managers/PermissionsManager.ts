@@ -24,6 +24,11 @@ export async function requestConfigPermissions(): Promise<boolean> {
 		}
 		return false;
 	} catch (err) {
+		if (err instanceof Error) {
+			logger.error(err.message);
+		} else {
+			logger.error("An unknown error occurred");
+		}
 		return false;
 	}
 }
