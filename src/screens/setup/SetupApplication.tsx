@@ -1,7 +1,6 @@
 import AppContext from "AppContext";
 import { ChoiceArrayItems } from "classes/ArrayItems";
-import { ButtonKeys } from "classes/SettingGroups";
-import { AppTheme, SettingPropTypes } from "classes/Settings";
+import { AppTheme } from "classes/Settings";
 import Validator, { Valid } from "classes/Validated";
 import EnumPicker from "elements/EnumPicker";
 import { useLogger } from "helpers/index";
@@ -21,38 +20,16 @@ import {
 } from "react-native";
 import { Button } from "react-native-elements";
 import { SetupScreenProps } from "screens/Setup";
-type AllowedKeys = Exclude<keyof SettingPropTypes, ButtonKeys>;
-
-export default function SetupApplication({
-	setReady,
-	setOnReady,
-}: SetupScreenProps) {
+export default function SetupApplication({ setReady }: SetupScreenProps) {
 	const Styles = useStyles("Main", "Setup", "Modal");
 	const ctx = useContext(AppContext);
 	const centeredText = Styles.Main.centeredText;
-	const [values, setValues] = useState<
-		Partial<Pick<SettingPropTypes, AllowedKeys>>
-	>({});
 
 	const [modalVisible, setModalVisible] = useState(false);
 	const [scannedIps, setScannedIps] = useState<string[]>([]);
 	const [ipAddress, setIpAddress] = useState<string>();
-	const [selectedTheme, setSelectedTheme] = useState<AppTheme>(AppTheme.Light);
 	const logger = useLogger("Setup Application");
-	const onSave = () => {
-		const entries = Object.entries(values) as [
-			AllowedKeys,
-			SettingPropTypes[AllowedKeys],
-		][];
 
-		entries.map(([key, value]) => {
-			logger.log(`Setting: ${key} To: ${value}`);
-			return ctx.Settings.set(key, Validator.validate(value));
-		});
-	};
-	useEffect(() => {
-		setOnReady(onSave);
-	}, []);
 	const setIP = (ip: string) => {
 		const validIp = Validator.validate(ip);
 
@@ -159,7 +136,6 @@ export default function SetupApplication({
 						onValueChange={(item) => setTheme(item as AppTheme)}
 						dropdownIconColor={getColor(ctx.theme, "textPrimary")}
 						mode="dropdown"
-						selectedValue={selectedTheme}
 						keys={themeKeys}
 						values={themeValues}
 					/>
