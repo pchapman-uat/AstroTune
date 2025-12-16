@@ -10,9 +10,6 @@
 [![Static Badge](https://img.shields.io/badge/Objective-ACS.5-purple)](https://pchapman-uat.github.io/Boards/ACS/#objective5)
 [![Static Badge](https://img.shields.io/badge/Objective-ACS.6-purple)](https://pchapman-uat.github.io/Boards/ACS/#objective6)
 
-> [!WARNING]
-> This project is still in early testing and is not ready for release
-
 <img src="src/assets/logo/full/icon.svg" width="150"/>
 
 AstroTune (Previously known as Foobar Controller Mobile) is a mobile app that uses the [BeefWeb API](https://github.com/hyperblast/beefweb) to allow users to control Foobar2000 and DeaDBeeF remotely.
