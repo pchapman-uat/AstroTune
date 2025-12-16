@@ -128,6 +128,7 @@ Below is information regarding the assets and libraries used for this project.
   - [Play](./src/assets/controls/play.svg) - [SVG Repo](https://www.svgrepo.com/svg/512667/play-1000) _(Public Domain)_
   - [Previous](./src/assets/controls/previous.svg) - [SVG Repo](https://www.svgrepo.com/svg/512685/previous-999) _(Public Domain)_
   - [Stop](./src/assets/controls/stop.svg) - [SVG Repo](https://www.svgrepo.com/svg/522297/stop) _(CC Attribution License)_
+  - [Volume State](./src/assets/controls/volume/) - [SVG Repo](https://www.svgrepo.com/collection/chunk-16px-thick-interface-icons/) _(Public Domain)_
 - **Icons**
   - [GitHub Mark](./src/assets/icons/) - [GitHub](https://github.com/logos)
 - **Navigation**
