@@ -82,7 +82,8 @@ export default function Setup({ navigation, route }: SetupProps) {
 		if (onReady) onReady();
 		resetStates();
 		const newCurrent = direction == "back" ? current - 1 : current + 1;
-		if (newCurrent < 0 || newCurrent >= items.length) navigation.goBack();
+		if (newCurrent >= items.length) navigation.navigate("Home");
+		else if (newCurrent < 0) navigation.goBack();
 		else setCurrentScreen(newCurrent);
 	};
 
