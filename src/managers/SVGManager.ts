@@ -34,6 +34,20 @@ import PreviousSVG from "assets/controls/previous.svg";
 import InfoSVG from "assets/info.svg";
 // @ts-expect-error TS will not handle custom modules (svg); However, Metro will handle at runtime
 import LogoSVG from "assets/logo/full/icon.svg";
+// @ts-expect-error TS will not handle custom modules (svg); However, Metro will handle at runtime
+import VolumeMute from "assets/controls/volume/volume-mute.svg";
+// @ts-expect-error TS will not handle custom modules (svg); However, Metro will handle at runtime
+import VolumeLow from "assets/controls/volume/volume-low.svg";
+// @ts-expect-error TS will not handle custom modules (svg); However, Metro will handle at runtime
+import VolumeHigh from "assets/controls/volume/volume-high.svg";
+// @ts-expect-error TS will not handle custom modules (svg); However, Metro will handle at runtime
+import VolumeNone from "assets/controls/volume/volume-none.svg";
+let VolumeSVGs = {
+	VolumeLow,
+	VolumeHigh,
+	VolumeMute,
+	VolumeNone,
+};
 export {
 	AlbumSVG,
 	ConnectionSVG,
@@ -53,4 +67,5 @@ export {
 	PlaybackQueueSVG,
 	PreviousSVG,
 	StopSVG,
+	VolumeSVGs,
 };

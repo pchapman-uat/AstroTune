@@ -135,6 +135,8 @@ export class Beefweb extends LoggerBaseClass<BeefWebEvents> {
 	 */
 	private mainInterval?: ReturnType<typeof setInterval>;
 
+	private previousVolume: number | undefined;
+
 	constructor() {
 		super();
 		this.init();
@@ -488,7 +490,9 @@ export class Beefweb extends LoggerBaseClass<BeefWebEvents> {
 	public async setPosition(position: number) {
 		await this._post(this.combineUrl("player"), { position });
 	}
-
+	public async setMuted(isMuted: boolean) {
+		this._post(this.combineUrl("player"), { isMuted });
+	}
 	private async addPlaylist(
 		title: string,
 		setCurrent: boolean,

@@ -2,7 +2,13 @@ import Slider from "@react-native-community/slider";
 import AppContext from "AppContext";
 import { NavBarItemProps } from "classes/NavBar";
 import ScrollingText from "elements/ScrollingText";
-import { formatTime, useLogger } from "helpers/index";
+import {
+	calcVolume,
+	formatTime,
+	roundTo,
+	useLogger,
+	VolumeType,
+} from "helpers/index";
 import { Icon } from "managers/ImageManager";
 import { useStyles } from "managers/StyleManager";
 import {
@@ -14,6 +20,7 @@ import {
 	Play,
 	PreviousSVG,
 	StopSVG,
+	VolumeSVGs,
 } from "managers/SVGManager";
 import { getColor } from "managers/ThemeManager";
 import { WebPlayerResponse } from "managers/TypeManager";
@@ -39,13 +46,11 @@ export default function NowPlaying({
 	const [albumArt, setAlbumArt] = useState<string>();
 	const [elapsed, setElapsed] = useState<number>();
 	const [length, setLength] = useState<number>();
-
-	// TODO: Add Muted Icon
 	const [isMuted, setIsMuted] = useState(false);
 	const [volumeMax, setVolumeMax] = useState<number>();
 	const [volumeMin, setVolumeMin] = useState<number>();
 	// TODO: Add Volume Type Option
-	const [volumeType, setVolumeType] = useState("");
+	const [volumeType, setVolumeType] = useState<VolumeType | string | null>();
 	const [volumeValue, setVolumeValue] = useState<number>();
 	const [rating, setRating] = useState<number>();
 	const [playing, setPlaying] = useState(false);
@@ -135,14 +140,12 @@ export default function NowPlaying({
 		intensity: number = 0.45,
 	) => {
 		if (value == null || max == null || min == null) return;
-		value = Math.max(min, Math.min(value, max));
-
-		const minGain = Math.pow(10, min / 20);
-		const maxGain = Math.pow(10, max / 20);
-		const valueGain = Math.pow(10, value / 20);
-
-		const normalized = (valueGain - minGain) / (maxGain - minGain);
-		const percentage = Math.pow(normalized, intensity);
+		const { minGain, maxGain, percentage } = calcVolume({
+			max,
+			min,
+			value,
+			intensity,
+		});
 		const onVolumeChanged = (sliderValue: number) => {
 			const adjusted = Math.pow(sliderValue, 1 / intensity);
 			const gain = minGain + adjusted * (maxGain - minGain);
@@ -152,7 +155,7 @@ export default function NowPlaying({
 		};
 		return (
 			<Slider
-				style={{ width: "100%" }}
+				style={{ width: "100%", flexShrink: 1 }}
 				value={percentage}
 				minimumTrackTintColor={getColor(ctx.theme, "buttonPrimary")}
 				thumbTintColor={getColor(ctx.theme, "buttonPrimary")}
@@ -161,6 +164,32 @@ export default function NowPlaying({
 				onValueChange={onVolumeChanged}
 			/>
 		);
+	};
+	type VolumeIconProps = {
+		max?: number;
+		min?: number;
+		value?: number;
+		muted?: boolean;
+		intensity?: number;
+	};
+	const VolumeIcon = ({
+		max,
+		min,
+		value,
+		muted,
+		intensity = 0.45,
+	}: VolumeIconProps) => {
+		const props = {
+			width: 30,
+			height: 30,
+			color: getColor(ctx.theme, "buttonPrimary"),
+		};
+		if (value == null || max == null || min == null) return;
+		const { percentage } = calcVolume({ max, min, value, intensity });
+		if (muted) return <VolumeSVGs.VolumeMute {...props} />;
+		if (percentage > 0.5) return <VolumeSVGs.VolumeHigh {...props} />;
+		else if (percentage > 0) return <VolumeSVGs.VolumeLow {...props} />;
+		else <VolumeSVGs.VolumeNone {...props} />;
 	};
 
 	const ratingEle = (rating: number = 0) => {
@@ -241,6 +270,9 @@ export default function NowPlaying({
 		};
 	}, []);
 
+	const onMute = (isMuted: boolean) => {
+		ctx.BeefWeb.setMuted(isMuted);
+	};
 	const content = () => (
 		<View style={Styles.NowPlaying.nowPlayingContainer}>
 			<View>
@@ -283,7 +315,21 @@ export default function NowPlaying({
 						{toggleButton(playing)}
 						{controlButton(Next, onSkip)}
 					</View>
-					{volumeBar(volumeMax, volumeMin, volumeValue)}
+					<View style={{ display: "flex", flexDirection: "row", width: "100%" }}>
+						<TouchableOpacity onPress={() => onMute(!isMuted)}>
+							<VolumeIcon
+								max={volumeMax}
+								min={volumeMin}
+								value={volumeValue}
+								muted={isMuted}
+							/>
+						</TouchableOpacity>
+						{volumeBar(volumeMax, volumeMin, volumeValue)}
+						<Text style={{ verticalAlign: "middle" }}>
+							{roundTo(volumeValue ?? 0, 2)}
+							{volumeType}
+						</Text>
+					</View>
 				</View>
 			</View>
 		</View>

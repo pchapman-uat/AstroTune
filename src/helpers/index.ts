@@ -170,3 +170,34 @@ export const newUpdateAlert = (
 		},
 	],
 });
+
+export type VolumeType = "db";
+export type VolumeProps = {
+	max: number;
+	min: number;
+	value: number;
+	intensity: number;
+};
+export function calcVolume({ max, min, value, intensity }: VolumeProps) {
+	value = Math.max(min, Math.min(value, max));
+	const minGain = Math.pow(10, min / 20);
+	const maxGain = Math.pow(10, max / 20);
+	const valueGain = Math.pow(10, value / 20);
+
+	const normalized = (valueGain - minGain) / (maxGain - minGain);
+	const percentage = Math.pow(normalized, intensity);
+
+	return {
+		minGain,
+		maxGain,
+		valueGain,
+		normalized,
+		percentage,
+	};
+}
+
+export function roundTo(num: number, decimalPlaces: number = 0): number {
+	if (decimalPlaces <= 0) return Math.round(num);
+	const factor = Math.pow(10, decimalPlaces);
+	return Math.round(num * factor) / factor;
+}
