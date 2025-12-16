@@ -2,7 +2,7 @@
   "expo": {
     "name": "AstroTune",
     "slug": "fooobar-controler-mobile",
-    "version": "0.4.0",
+    "version": "1.0.0",
     "orientation": "default",
     "icon": "./src/assets/logo/half/icon_half.png",
     "userInterfaceStyle": "light",
