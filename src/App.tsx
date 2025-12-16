@@ -134,8 +134,14 @@ export default function App() {
 
 	const onReady = (firstTime: boolean) => {
 		if (firstTime === null) return;
-		if (firstTime) navigationRef.navigate("Welcome");
-		else navigationRef.navigate("Home");
+		const onAction = () => {
+			if (firstTime) return "Welcome";
+			else return "Home";
+		};
+		navigationRef.reset({
+			index: 0,
+			routes: [{ name: onAction() }],
+		});
 	};
 
 	return (
