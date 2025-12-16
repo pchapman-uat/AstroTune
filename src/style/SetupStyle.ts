@@ -6,6 +6,7 @@ export default ({ theme }: StyleProps) =>
 	StyleSheet.create({
 		header: {},
 		headerText: {
+			color: getColor(theme, "textPrimary"),
 			textAlign: "center",
 		},
 		container: {
